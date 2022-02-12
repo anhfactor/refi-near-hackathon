@@ -1,0 +1,14 @@
+/data
+
+artifacts
+build
+node_modules
+**node_modules
+.env
+typechain
+yarn-error.log
+cache
+
+/mvm
+/contracts.json
+.DS_Store

@@ -1,0 +1,34 @@
+version: "3.9"
+
+networks:
+  refi: {}
+
+services:
+  caddy:
+    restart: unless-stopped
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - refi
+    volumes:
+      - ./config/Caddyfile:/etc/caddy/Caddyfile
+      - ./data/caddy:/data
+      # - caddy_config:/config
+  backend:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: refi/backend
+    networks:
+      - refi
+    environment:
+      - WITH_AUTH=1
+      - DATA_DIR=/data
+      - LOG_LEVEL=info
+      - AUTH_PASSWORD=${BACKEND_AUTH_PASSWORD}
+      - STATIC_FRONTEND_PATH=/app/frontend/out
+    volumes:
+      - ./data/backend:/data
