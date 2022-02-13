@@ -4,12 +4,13 @@ import Navbar from 'components/Navbar/Navbar';
 import NavbarContainer from 'components/Navbar/NavbarContainer';
 import NavbarWrapper from 'components/Navbar/NavbarWrapper';
 import NavbarBrand from 'components/Navbar/NavbarBrand';
-import NavbarToggler from 'components/Navbar/NavbarToggler';
 import Nav from 'components/Nav/Nav';
 import NavLink from 'components/Nav/NavLink';
 import Dropdown from 'components/Dropdown/Dropdown';
 import DropdownItem from 'components/Dropdown/DropdownItem';
 import Button from 'components/Button/Button';
+import Heading5 from 'components/Typography/Heading5'
+import navBarIcon from '../assets/img/navbar-icon.svg'
 
 export default function IndexNavbar(props) {
     const [openNavbar, setOpenNavbar] = useState(false);
@@ -21,21 +22,14 @@ export default function IndexNavbar(props) {
                     <Link href="/">
                         <a>
                             <NavbarBrand color="gray" >
-                            <svg class="text-primary-500 stroke-current mr-1" style={{display: "inline-block" , color : "rgba(3,169,244,var(--tw-text-opacity))"}} xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                            ><path d="M0 0h24v24H0z" stroke="none"></path><rect x="3" y="12" width="6" height="8" rx="1"></rect>
-                            <rect x="9" y="8" width="6" height="12" rx="1"></rect><rect x="15" y="4" width="6" height="16" rx="1"></rect><path d="M4 20h14"></path></svg>
-                            <div style={{display: "inline-block"}} className="text-white">REFI</div>
+                                <Heading5 style={{display: "inline-block"}} color="white">
+                                    <img src={navBarIcon} style={{display: "inline-block"}}/>   REFI
+                                </Heading5>
                             </NavbarBrand>
                         </a>
                     </Link>
-                    <NavbarToggler
-                        onClick={() => setOpenNavbar(!openNavbar)}
-                        ripple="dark"
-                        color="gray"
-                    />
                 </NavbarWrapper>
-
-                {/* <NavbarCollapse open={openNavbar}> */}
+                <NavbarWrapper>
                     <Nav>
                         <Button
                             color="green"
@@ -51,54 +45,54 @@ export default function IndexNavbar(props) {
                                 <path d="M15 2.292a3.317 3.317 0 012.981 1.841l9.375 18.75a3.333 3.333 0 01-2.981 4.825H5.625a3.333 3.333 0 01-2.98-4.825l9.374-18.75A3.317 3.317 0 0115 2.292M15 0a5.625 5.625 0 00-5.031 3.108L.594 21.858A5.625 5.625 0 005.625 30h18.75a5.625 5.625 0 005.03-8.142l-9.374-18.75A5.625 5.625 0 0015 0z" fill="currentColor" class="text-primary"></path>
                             </svg>
                         </Button>
-                    <NavLink>
-                        {props.address == undefined ? <>
-                        <Button
-                            color="blueGray"
-                            buttonType="filled"
-                            size="regular"
-                            rounded={false}
-                            block={false}
-                            iconOnly={false}
-                            ripple="dark"
-                            onClick={props.connectWallet}
-                        >
-                            <i class="fas fa-wallet"></i> Connect wallet
-                        </Button>
-                        </> :
-                        <>
-                            <Dropdown
+                        <NavLink>
+                            {props.address == undefined ? <>
+                            <Button
                                 color="blueGray"
-                                placement="bottom-start"
-                                buttonText={props.address.substr(0, 12)}
                                 buttonType="filled"
                                 size="regular"
                                 rounded={false}
                                 block={false}
-                                ripple="light"
+                                iconOnly={false}
+                                ripple="dark"
+                                onClick={props.connectWallet}
                             >
-                                 <DropdownItem color="blueGray" ripple="light">
-                                    Balance
-                                </DropdownItem>
-                                <DropdownItem color="blueGray" ripple="light" onClick={props.disconnectWallet}>
-                                    Log out
-                                </DropdownItem>
-                            </Dropdown>
-                        </>}
-                    </NavLink>
-                    <Button
-                        color="blueGray"
-                        buttonType="outline"
-                        size="regular"
-                        rounded={false}
-                        block={true}
-                        iconOnly={true}
-                        ripple="dark"
-                    >
-                        <i class="fas fa-cog"></i>
-                    </Button>
+                                <i class="fas fa-wallet"></i> Connect wallet
+                            </Button>
+                            </> :
+                            <>
+                                <Dropdown
+                                    color="blueGray"
+                                    placement="bottom-start"
+                                    buttonText={props.address.substr(0, 12)}
+                                    buttonType="filled"
+                                    size="regular"
+                                    rounded={false}
+                                    block={false}
+                                    ripple="light"
+                                >
+                                    <DropdownItem color="blueGray" ripple="light">
+                                        Balance
+                                    </DropdownItem>
+                                    <DropdownItem color="blueGray" ripple="light" onClick={props.disconnectWallet}>
+                                        Log out
+                                    </DropdownItem>
+                                </Dropdown>
+                            </>}
+                        </NavLink>
+                        <Button
+                            color="blueGray"
+                            buttonType="outline"
+                            size="regular"
+                            rounded={false}
+                            block={true}
+                            iconOnly={true}
+                            ripple="dark"
+                        >
+                            <i class="fas fa-cog"></i>
+                        </Button>
                     </Nav>
-                {/* </NavbarCollapse> */}
+                </NavbarWrapper>
             </NavbarContainer>
         </Navbar>
     );

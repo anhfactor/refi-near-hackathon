@@ -452,3 +452,6 @@
         transform: scale3d(3, 3, 1);
     }
 }
+
+/* Transition effect */
+.navHover:hover { transform: rotateZ(-15deg); transition: transform 0.3s ease 0s; }

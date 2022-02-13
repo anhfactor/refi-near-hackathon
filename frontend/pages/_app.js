@@ -126,15 +126,6 @@ export default class MyApp extends App {
                     integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
                     crossOrigin="anonymous"
                 />
-                <link
-                    rel="shortcut icon"
-                    href={require('assets/img/favicon.ico')}
-                />
-                <link
-                    rel="apple-touch-icon"
-                    sizes="76x76"
-                    href={require('assets/img/apple-icon.png')}
-                />
             <title>{process.env.NEXT_PUBLIC_CONTRACT_NAME}</title>
           </Head>
           {/* Modal message */}

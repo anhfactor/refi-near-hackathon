@@ -27,7 +27,7 @@ const colors = {
 export default function NavbarBrand({ children, color }) {
     return (
         <span
-            className={`text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap uppercase ${colors[color]}`}
+            className={`text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-no-wrap navHover uppercase ${colors[color]}`}
             style={{display: "inline-block"}}
         >
             {children}
