@@ -17,15 +17,18 @@ export default class MyApp extends App {
       super(props);
       this.state = { address: undefined, 
                     modalMessage: "You have connected.", 
-                    showModal: false
+                    showModal: false,
+                    isWrongNetwork: true
                   };
       this.handleAccountsChanged = this.handleAccountsChanged.bind(this)
+      this.handleChangeChainId = this.handleChangeChainId.bind(this)
     }
     async componentDidMount() {
       const provider = await detectEthereumProvider();
       if (provider) {
-        this._connectWallet();
+        await this._connectWallet();
         ethereum.on('accountsChanged', this.handleAccountsChanged);
+        ethereum.on('chainChanged', (_chainId) => this.handleChangeChainId(_chainId));
       } else {
         this.setState({
           modalMessage: 'Please install MetaMask!',
@@ -64,35 +67,61 @@ export default class MyApp extends App {
         })
       }
     }
+
+    // detect when change chainId from metamask
+    async handleChangeChainId(chainId) {
+      let chainIdInt = await parseInt(chainId, 16);
+      if (String(chainIdInt) == String(process.env.NEXT_PUBLIC_CHAIN_ID)) {
+        console.log("change")
+        this.setState({
+          modalMessage: `You have connected.`,
+          showModal: true,
+          isWrongNetwork: true
+        })
+      } else {
+        console.log("false")
+        this.setState({
+          isWrongNetwork: false
+        })
+      }
+    }
   
     _checkNetwork() {
       if (ethereum.networkVersion === process.env.NEXT_PUBLIC_CHAIN_ID) {
         return true
       }
-      this.setState({
-        modalMessage: `Please connect to ${process.env.NEXT_PUBLIC_CHAIN_NAME}. ChainId: ${process.env.NEXT_PUBLIC_CHAIN_ID} `,
-        showModal: true
-      })
       return false
     }
   
     _connectWallet() {
-      ethereum
-        .request({ method: 'eth_requestAccounts' })
-        .then(this.handleAccountsChanged)
-        .catch((err) => {
-          if (err.code === 4001) {
-            this.setState({
-              modalMessage: 'Please connect to MetaMask.',
-              showModal: true
-            })
-          } else {
-            console.error(err);
-          }
-        });
-      // First we check the network
-      if (!this._checkNetwork()) {
-        return
+      try {
+        ethereum
+          .request({ method: 'eth_requestAccounts' })
+          .then(this.handleAccountsChanged)
+          .catch((err) => {
+            if (err.code === 4001) {
+              this.setState({
+                modalMessage: 'Please connect to MetaMask.',
+                showModal: true
+              })
+            } else {
+              console.error(err);
+            }
+          });
+        // First we check the network
+        if (!this._checkNetwork()) {
+          this.setState({
+            modalMessage: `Please connect to ${process.env.NEXT_PUBLIC_CHAIN_NAME}. ChainId: ${process.env.NEXT_PUBLIC_CHAIN_ID} `,
+            showModal: true,
+            isWrongNetwork: false
+          })
+          return
+        }
+      } catch (error) {
+        this.setState({
+          modalMessage: 'Please install MetaMask!',
+          showModal: true
+        })
       }
     }
   
@@ -161,6 +190,7 @@ export default class MyApp extends App {
               isOpenPopver={this.state.isOpenPopver}
               popoverColor={this.state.popoverColor}
               popoverMessage={this.state.popoverMessage}
+              isWrongNetwork={this.state.isWrongNetwork}
             />
           </div>
           </Layout>

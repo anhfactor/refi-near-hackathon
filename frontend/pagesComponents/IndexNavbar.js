@@ -60,25 +60,40 @@ export default function IndexNavbar(props) {
                                 <i class="fas fa-wallet"></i> Connect wallet
                             </Button>
                             </> :
-                            <>
-                                <Dropdown
-                                    color="blueGray"
-                                    placement="bottom-start"
-                                    buttonText={props.address.substr(0, 12)}
-                                    buttonType="filled"
-                                    size="regular"
-                                    rounded={false}
-                                    block={false}
-                                    ripple="light"
-                                >
-                                    <DropdownItem color="blueGray" ripple="light">
-                                        Balance
-                                    </DropdownItem>
-                                    <DropdownItem color="blueGray" ripple="light" onClick={props.disconnectWallet}>
-                                        Log out
-                                    </DropdownItem>
-                                </Dropdown>
-                            </>}
+                                <>
+                                    {props.isWrongNetwork ? 
+                                    <Dropdown
+                                        color="blueGray"
+                                        placement="bottom-end"
+                                        buttonText={props.address.substr(0, 12)}
+                                        buttonType="filled"
+                                        size="regular"
+                                        rounded={false}
+                                        block={false}
+                                        ripple="light"
+                                    >
+                                        <DropdownItem color="blueGray" ripple="light">
+                                            Balance
+                                        </DropdownItem>
+                                        <DropdownItem color="blueGray" ripple="light" onClick={props.disconnectWallet}>
+                                            Log out
+                                        </DropdownItem>
+                                    </Dropdown>
+                                    : <>
+                                    <Button
+                                        color="red"
+                                        buttonType="filled"
+                                        size="regular"
+                                        rounded={false}
+                                        block={false}
+                                        iconOnly={false}
+                                        ripple="dark"
+                                        onClick={props.connectWallet}
+                                    >
+                                       <i class="fas fa-times"></i> Wrong network
+                                    </Button>
+                                    </>}
+                                </>}
                         </NavLink>
                         <Button
                             color="blueGray"
