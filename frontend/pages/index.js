@@ -56,7 +56,7 @@ export default function Index(props) {
                                 }}
                                 ripple="light"
                                 className={openTab === 3 ? "text-dark" : "text-gray-400"}
-                                active={openTab === 2 ? true : false}
+                                active={openTab === 3 ? true : false}
                                 href="swap"
                               >
                               Swap
@@ -68,10 +68,22 @@ export default function Index(props) {
                                 }}
                                 ripple="light"
                                 className={openTab === 4 ? "text-dark" : "text-gray-400"}
-                                active={openTab === 2 ? true : false}
+                                active={openTab === 4 ? true : false}
                                 href="lending"
                               >
                               Lending
+                          </TabItem>
+                          <TabItem
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setOpenTab(5);
+                                }}
+                                ripple="light"
+                                className={openTab === 5 ? "text-dark" : "text-gray-400"}
+                                active={openTab === 5 ? true : false}
+                                href="lending"
+                              >
+                              Faucet
                           </TabItem>
                       </TabList>
                         <TabContent>
@@ -195,6 +207,8 @@ export default function Index(props) {
                                     </Button>
                                 </div>
                             </CardFooter>
+                          </TabPane>
+                          <TabPane active={openTab === 5 ? true : false}>
                           </TabPane>
                       </TabContent>
                     </Card>

@@ -73,10 +73,10 @@ export default function IndexNavbar(props) {
                                         ripple="light"
                                     >
                                         <DropdownItem color="blueGray" ripple="light">
-                                            Balance
+                                            <i class="fas fa-coins"></i>  Your assets
                                         </DropdownItem>
                                         <DropdownItem color="blueGray" ripple="light" onClick={props.disconnectWallet}>
-                                            Log out
+                                            <i class="fas fa-sign-out-alt"></i> Log out
                                         </DropdownItem>
                                     </Dropdown>
                                     : <>
@@ -95,17 +95,6 @@ export default function IndexNavbar(props) {
                                     </>}
                                 </>}
                         </NavLink>
-                        <Button
-                            color="blueGray"
-                            buttonType="outline"
-                            size="regular"
-                            rounded={false}
-                            block={true}
-                            iconOnly={true}
-                            ripple="dark"
-                        >
-                            <i class="fas fa-cog"></i>
-                        </Button>
                     </Nav>
                 </NavbarWrapper>
             </NavbarContainer>
