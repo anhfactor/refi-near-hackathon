@@ -10,8 +10,8 @@
     "test": "npx hardhat test",
     "compile": "npx hardhat compile",
     "clean": "npx hardhat clean && rm -rf ./types ./build",
-    "deploy:testnet": "npx hardhat run --config hardhat.config.testnet.ts --network metis_testnet",
-    "deploy:local": "npx hardhat run --config hardhat.config.local.ts --network metis_local"
+    "deploy:testnet": "npx hardhat run --config hardhat.config.testnet.ts --network aurora_testnet",
+    "deploy:local": "npx hardhat run --config hardhat.config.local.ts --network aurora_local"
   },
   "author": "",
   "license": "ISC",

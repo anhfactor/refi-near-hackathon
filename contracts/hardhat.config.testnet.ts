@@ -9,10 +9,10 @@ import config from './hardhat.config'
 import * as path from 'path'
 import { addressNamesList } from "./libs/constants";
 
-process.env.DEPLOYMENT="testnet"
-process.env.DEPLOYMENT_ENV=".production.local"
+process.env.DEPLOYMENT = "testnet"
+process.env.DEPLOYMENT_ENV = ".production.local"
 // load from repository root, also used during build & deployment
-dotenv.config({path: path.resolve(__dirname, '../.env')})
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 
 const accounts: string[] = []
 
@@ -27,11 +27,11 @@ accounts.push(...(addressNamesList.map((key: string): string => {
 
 config.defaultNetwork = "aurora_testnet"
 config.networks = {
-    
-    aurora_testnet: {
-      url: "https://stardust.metis.io/?owner=588",
-      accounts
-    }
+
+  aurora_testnet: {
+    url: "https://testnet.aurora.dev",
+    accounts
+  }
 }
 
 export default config;
