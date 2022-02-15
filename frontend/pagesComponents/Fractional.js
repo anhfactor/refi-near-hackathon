@@ -12,7 +12,7 @@ export default function Fractional(props) {
                     <InputIcon
                         type="text"
                         color="lightBlue"
-                        placeholder="Contract number *"
+                        placeholder="Enter Certificate ID *"
                         iconName="account_circle"
                     />
                 </div>
@@ -20,7 +20,7 @@ export default function Fractional(props) {
                     <InputIcon
                         type="text"
                         color="lightBlue"
-                        placeholder="Amount fraction *"
+                        placeholder="Enter Amount of PVF *"
                     />
                 </div>
             </CardBody>
