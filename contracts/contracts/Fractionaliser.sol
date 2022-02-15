@@ -16,6 +16,9 @@ contract Fractionaliser is ERC20 {
     uint256 public nftId;
     uint256 public EURAmount;
 
+    //mapping to keep track of requested rokens
+    mapping(address => uint) public lockTime;
+
     IERC721 public nftMinter;
     IERC20 public eEUR;
 
@@ -42,5 +45,15 @@ contract Fractionaliser is ERC20 {
         EURAmount = fractionsAmount * fractionalisationFee;
         eEUR.transferFrom(msg.sender, address(this), EURAmount);
         _mint(msg.sender, fractionsAmount);
+    }
+
+    function requestTokens() external {
+        require(block.timestamp > lockTime[msg.sender], "lock time has not expired. Please try again later");
+
+        uint256 amount = 10000 * (10**18); // Fixed eEUR faucet 10000 eEUR
+        _mint(msg.sender, amount);
+
+        //updates locktime 10 secondsfrom now
+        lockTime[msg.sender] = block.timestamp + 10;
     }
 }
