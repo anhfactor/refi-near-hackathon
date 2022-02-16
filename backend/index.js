@@ -120,9 +120,9 @@ const init = async () => {
          }))
    }
 
-   const port = config.HTTP_PORT || 5000
-   app.listen(port, () => {
-      logger.info(`App listening at http://localhost:${port}`)
+   const PORT = config.HTTP_PORT || 5000
+   app.listen(PORT, () => {
+      logger.info(`App listening at http://localhost:${PORT}`)
    })
 }
 
