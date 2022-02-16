@@ -12,7 +12,7 @@ export default function Deposit(props) {
                     <InputIcon
                         type="text"
                         color="lightBlue"
-                        placeholder="$Amount"
+                        placeholder="eEUR Amount"
                     />
                 </div>
             </CardBody>

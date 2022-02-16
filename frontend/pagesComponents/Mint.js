@@ -12,7 +12,7 @@ export default function Mint(props) {
                     <InputIcon
                         type="text"
                         color="lightBlue"
-                        placeholder="Contract number *"
+                        placeholder="Enter Certificate ID *"
                         iconName="account_circle"
                     />
                 </div>
@@ -20,14 +20,14 @@ export default function Mint(props) {
                     <InputIcon
                         type="text"
                         color="lightBlue"
-                        placeholder="Asset name *"
+                        placeholder="Asset Description *"
                     />
                 </div>
                 <div className="">
                     <InputIcon
                         type="text"
                         color="lightBlue"
-                        placeholder="Digital image asset *"
+                        placeholder="Enter Certificate URI *"
                     />
                 </div>
             </CardBody>
@@ -38,7 +38,7 @@ export default function Mint(props) {
                         size="lg"
                         ripple="dark"
                     >
-                        Create digital assets
+                        Create Certificate
                     </Button>
                 </div>
             </CardFooter>

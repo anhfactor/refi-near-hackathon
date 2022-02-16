@@ -12,7 +12,7 @@ export default function Faucet(props) {
                     <InputIcon
                         type="text"
                         color="lightBlue"
-                        placeholder="$Amount"
+                        placeholder="eEUR Amount"
                     />
                 </div>
             </CardBody>
