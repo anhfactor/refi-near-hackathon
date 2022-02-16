@@ -15,7 +15,12 @@ const createpwd = () => ((Date.now() * Math.random()).toString(36) + Math.random
 const init = async () => {
 
    const config = await getConfig()
+   const PORT = config.HTTP_PORT || 5000
+
    const app = express()
+      .set('port', PORT)
+      .set('views', path.join(__dirname, 'views'))
+      .set('view engine', 'ejs')
    // logger
    const logger = getLogger(config)
 
@@ -120,9 +125,8 @@ const init = async () => {
          }))
    }
 
-   const PORT = config.HTTP_PORT || 5000
-   app.listen(PORT, () => {
-      logger.info(`App listening at http://localhost:${PORT}`)
+   app.listen(app.get('port'), () => {
+      logger.info(`App listening at http://localhost:${app.get('port')}`)
    })
 }
 
