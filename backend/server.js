@@ -14,7 +14,7 @@ const createpwd = () => ((Date.now() * Math.random()).toString(36) + Math.random
 
 const init = async () => {
 
-   const config = getConfig()
+   const config = await getConfig()
    const app = express()
    // logger
    const logger = getLogger(config)
@@ -94,6 +94,14 @@ const init = async () => {
       await wrapError(res, async () => {
          logger.info(`Edit tokenId=${req.params.tokenId}`)
          const token = await tokenHandler.edit(req.params.tokenId, req.body.ownerAddress, req.body.receiverAddress)
+         res.json(token)
+      })
+   })
+
+   app.delete('/api/:tokenId', async (req, res) => {
+      await wrapError(res, async () => {
+         logger.info(`Delete tokenId=${req.params.tokenId}`)
+         const token = await tokenHandler.delete(req.params.tokenId)
          res.json(token)
       })
    })

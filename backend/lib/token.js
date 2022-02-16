@@ -49,5 +49,10 @@ module.exports = async (config) => {
             const results = await replace(options)
             return results
         },
+        async delete(tokenId) {
+            const filePath = getTokenFilePath(tokenId)
+            await fs.unlink(filePath);
+            return filePath
+        }
     }
 }

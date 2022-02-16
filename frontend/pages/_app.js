@@ -23,10 +23,11 @@ export default class MyApp extends App {
       this.handleAccountsChanged = this.handleAccountsChanged.bind(this)
       this.handleChangeChainId = this.handleChangeChainId.bind(this)
     }
-    async componentDidMount() {
-      const provider = await detectEthereumProvider();
+    componentDidMount() {
+      const provider = detectEthereumProvider();
       if (provider) {
-        await this._connectWallet();
+        ethereum.enable()
+        this._connectWallet();
         ethereum.on('accountsChanged', this.handleAccountsChanged);
         ethereum.on('chainChanged', (_chainId) => this.handleChangeChainId(_chainId));
       } else {
@@ -102,7 +103,9 @@ export default class MyApp extends App {
             }
           });
         // First we check the network
-        if (ethereum.networkVersion !== process.env.NEXT_PUBLIC_CHAIN_ID && ethereum.networkVersion != undefined) {
+        console.log(ethereum.networkVersion)
+
+        if (ethereum.networkVersion !== process.env.NEXT_PUBLIC_CHAIN_ID) {
           this.setState({
             modalMessage: `Please connect to ${process.env.NEXT_PUBLIC_CHAIN_NAME}. ChainId: ${process.env.NEXT_PUBLIC_CHAIN_ID} `,
             showModal: true,
