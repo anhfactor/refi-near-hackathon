@@ -86,14 +86,7 @@ export default class MyApp extends App {
       }
     }
   
-    _checkNetwork() {
-      if (ethereum.networkVersion === process.env.NEXT_PUBLIC_CHAIN_ID) {
-        return true
-      }
-      return false
-    }
-  
-    _connectWallet() {
+    async _connectWallet() {
       try {
         ethereum
           .request({ method: 'eth_requestAccounts' })
@@ -109,7 +102,7 @@ export default class MyApp extends App {
             }
           });
         // First we check the network
-        if (!this._checkNetwork()) {
+        if (ethereum.networkVersion !== process.env.NEXT_PUBLIC_CHAIN_ID && ethereum.networkVersion != undefined) {
           this.setState({
             modalMessage: `Please connect to ${process.env.NEXT_PUBLIC_CHAIN_NAME}. ChainId: ${process.env.NEXT_PUBLIC_CHAIN_ID} `,
             showModal: true,
