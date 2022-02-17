@@ -23,10 +23,9 @@ export default class MyApp extends App {
       this.handleAccountsChanged = this.handleAccountsChanged.bind(this)
       this.handleChangeChainId = this.handleChangeChainId.bind(this)
     }
-    componentDidMount() {
-      const provider = detectEthereumProvider();
+    async componentDidMount() {
+      const provider = await detectEthereumProvider();
       if (provider) {
-        ethereum.enable()
         this._connectWallet();
         ethereum.on('accountsChanged', this.handleAccountsChanged);
         ethereum.on('chainChanged', (_chainId) => this.handleChangeChainId(_chainId));
@@ -73,14 +72,12 @@ export default class MyApp extends App {
     async handleChangeChainId(chainId) {
       let chainIdInt = await parseInt(chainId, 16);
       if (String(chainIdInt) == String(process.env.NEXT_PUBLIC_CHAIN_ID)) {
-        console.log("change")
         this.setState({
           modalMessage: `You have connected.`,
           showModal: true,
           isWrongNetwork: true
         })
       } else {
-        console.log("false")
         this.setState({
           isWrongNetwork: false
         })
@@ -89,7 +86,7 @@ export default class MyApp extends App {
   
     async _connectWallet() {
       try {
-        ethereum
+        await ethereum
           .request({ method: 'eth_requestAccounts' })
           .then(this.handleAccountsChanged)
           .catch((err) => {
@@ -102,9 +99,6 @@ export default class MyApp extends App {
               console.error(err);
             }
           });
-        // First we check the network
-        console.log(ethereum.networkVersion)
-
         if (ethereum.networkVersion !== process.env.NEXT_PUBLIC_CHAIN_ID) {
           this.setState({
             modalMessage: `Please connect to ${process.env.NEXT_PUBLIC_CHAIN_NAME}. ChainId: ${process.env.NEXT_PUBLIC_CHAIN_ID} `,
