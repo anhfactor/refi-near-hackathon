@@ -15,7 +15,7 @@ contract OwnershipCreator is ERC721, Ownable {
         _url = url;
     }
 
-    function CreateCertificate(address to) external onlyOwner {
+    function CreateCertificate(address to) external {
         _safeMint(to, nextTokenId);
         nextTokenId++;
     }

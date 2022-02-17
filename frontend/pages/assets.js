@@ -11,6 +11,8 @@ import Heading5 from 'components/Typography/Heading5';
 import Heading6 from 'components/Typography/Heading6';
 import Image from 'components/Image/Image';
 import Button from 'components/Button/Button';
+import Link from "next/link";
+
 export default function Index(props) {
     return (
         <>
@@ -20,7 +22,20 @@ export default function Index(props) {
                 <section className="header relative pb-24 px-20">
                     <Card>
                         <CardBody>
-                            <Heading5>Your NFT</Heading5>
+                        <div class="flex flex-wrap justify-between">
+                            <Heading5 style={{display:"inline-block"}}>Your NFT</Heading5>
+                            <Link href="/" as={`/`}>
+                                <Button
+                                    color="red"
+                                    buttonType="filled"
+                                    size="sm"
+                                    ripple="light"
+                                    style={{display:"inline-block"}}
+                                >
+                                    <i class="fas fa-times"></i> Close
+                                </Button>
+                            </Link>
+                        </div>
                             <div class="container">
                                 <div class="flex flex-wrap gap-12 mt-10">
                                     <div class="w-64 text-center" style={{justifyContent:"center"}}>
