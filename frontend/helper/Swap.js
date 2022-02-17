@@ -42,9 +42,9 @@ export const getAmountOut = async (address1, address2, amountIn) => {
         const refiRouter02 = await contractReFiRouter02(signer)
 
         const values_out = await refiRouter02.getAmountOut(
-            10000 - amountIn,
-            10000 - amountIn,
-            10000 - amountIn
+            amountIn,
+            amountIn,
+            amountIn
         );
         const amount_out = ethers.utils.formatEther(values_out);
         return amount_out
