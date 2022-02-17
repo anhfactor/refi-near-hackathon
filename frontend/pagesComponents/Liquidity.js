@@ -3,12 +3,8 @@ import CardBody from 'components/Card/CardBody';
 import CardFooter from 'components/Card/CardFooter';
 import InputIcon from 'components/Input/InputIcon';
 import Button from 'components/Button/Button';
-import Tab from "components/Tab/Tab";
-import TabList from "components/Tab/TabList";
-import TabItem from "components/Tab/TabItem";
-import TabContent from "components/Tab/TabContent";
-import TabPane from "components/Tab/TabPane";
 import React, { useEffect, useState } from 'react'
+import { approveLending, supplyLending, borrow, redeem } from "../helper/Lending"
 
 export default function Liquidity(props) {
     const [openTab, setOpenTab] = React.useState(1);
@@ -59,62 +55,83 @@ export default function Liquidity(props) {
                       className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
                       role="tablist"
                     >
-                      <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                        <a
-                          className={
-                            "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
-                            (openTab === 1
-                              ? "text-lightBlue bg-lightBlue-600"
-                              : "text-lightBlue-600 bg-white")
-                          }
-                          onClick={e => {
-                            e.preventDefault();
-                            setOpenTab(1);
-                          }}
-                          data-toggle="tab"
-                          href="#link1"
-                          role="tablist"
-                        >
-                          <i class="fas fa-coins"></i> Supply
-                        </a>
+                      <li className="flex-auto text-center">
+                        {openTab === 1 ? 
+                            <Button
+                                color="lightBlue"
+                                size="lg"
+                                ripple="dark"
+                                onClick={e => {
+                                    e.preventDefault()
+                                    setOpenTab(1);
+                                }}
+                            >
+                            <i class="fas fa-coins"></i> Supply
+                            </Button> : 
+                                <Button
+                                color="lightBlue"
+                                buttonType="outline"
+                                size="lg"
+                                ripple="dark"
+                                onClick={e => {
+                                    e.preventDefault()
+                                    setOpenTab(1);
+                                }}
+                            >
+                            <i class="fas fa-coins"></i> Supply
+                        </Button>}
                       </li>
-                      <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                        <a
-                          className={
-                            "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
-                            (openTab === 2
-                              ? "text-white bg-lightBlue-600"
-                              : "text-lightBlue-600 bg-white")
-                          }
-                          onClick={e => {
-                            e.preventDefault();
-                            setOpenTab(2);
-                          }}
-                          data-toggle="tab"
-                          href="#link3"
-                          role="tablist"
-                        >
-                          <i class="fas fa-hand-holding-usd"></i>  Borrow
-                        </a>
+                      <li className="flex-auto text-center">
+                          {openTab === 2 ? 
+                            <Button
+                                color="lightBlue"
+                                size="lg"
+                                ripple="dark"
+                                onClick={e => {
+                                    e.preventDefault()
+                                    setOpenTab(2);
+                                }}
+                            >
+                            <i class="fas fa-hand-holding-usd"></i>  Borrow
+                            </Button> : 
+                                <Button
+                                color="lightBlue"
+                                buttonType="outline"
+                                size="lg"
+                                ripple="dark"
+                                onClick={e => {
+                                    e.preventDefault()
+                                    setOpenTab(2);
+                                }}
+                            >
+                            <i class="fas fa-hand-holding-usd"></i>  Borrow
+                        </Button>}
                       </li>
-                      <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                        <a
-                          className={
-                            "text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal " +
-                            (openTab === 3
-                              ? "text-white bg-lightBlue-600"
-                              : "text-lightBlue-600 bg-white")
-                          }
-                          onClick={e => {
-                            e.preventDefault();
-                            setOpenTab(3);
-                          }}
-                          data-toggle="tab"
-                          href="#link3"
-                          role="tablist"
-                        >
+                      <li className="flex-auto text-center">
+                        {openTab === 3 ? 
+                            <Button
+                                color="lightBlue"
+                                size="lg"
+                                ripple="dark"
+                                onClick={e => {
+                                    e.preventDefault()
+                                    setOpenTab(3);
+                                }}
+                            >
                           <i class="fas fa-wallet"></i>  Redeem
-                        </a>
+                            </Button> : 
+                                <Button
+                                color="lightBlue"
+                                buttonType="outline"
+                                size="lg"
+                                ripple="dark"
+                                onClick={e => {
+                                    e.preventDefault()
+                                    setOpenTab(3);
+                                }}
+                            >
+                          <i class="fas fa-wallet"></i>  Redeem
+                        </Button>}
                       </li>
                     </ul>
                     <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
@@ -138,12 +155,14 @@ export default function Liquidity(props) {
                                 onChange={handleChange.supplyValue}
                               />
                             </div>
-                            <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                              type="button"
-                              onClick={_supply}
-                            >
-                              Deposit
-                            </button>
+                            <Button
+                                color="lightBlue"
+                                size="lg"
+                                ripple="dark"
+                                onClick={_supply}
+                                >
+                                Deposit
+                            </Button>
                           </div>
                           <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                             <p>
@@ -163,12 +182,14 @@ export default function Liquidity(props) {
                                 onChange={handleChange.borrowValue}
                               />
                             </div>
-                            <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                              type="button"
-                              onClick={_borrow}
-                            >
-                              Borrow
-                            </button>
+                            <Button
+                                color="lightBlue"
+                                size="lg"
+                                ripple="dark"
+                                onClick={_borrow}
+                                >
+                                Borrow
+                            </Button>
                           </div>
                           <div className={openTab === 3 ? "block" : "hidden"} id="link3">
                             <p>
@@ -187,12 +208,14 @@ export default function Liquidity(props) {
                                 onChange={handleChange.redeemValue}
                               />
                             </div>
-                            <button className="bg-lightBlue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                              type="button"
-                              onClick={_redeem}
-                            >
-                              Redeem
-                            </button>
+                            <Button
+                                color="lightBlue"
+                                size="lg"
+                                ripple="dark"
+                                onClick={_redeem}
+                                >
+                                Redeem
+                            </Button>
                           </div>
                         </div>
                       </div>
