@@ -71,7 +71,7 @@ export default function Fractional(props) {
         if (nftFraction == null) {
           alert("Please choose NFT")
         } else {
-          const fractionAmount = 10000
+          const fractionAmount = 1000000000000 // 10000 Fraction
           const tokenId = nftFraction.value
           console.log(`${tokenId} fraction ${fractionAmount}`)
           const result = await fractionalise(tokenId, fractionAmount)

@@ -12,7 +12,7 @@ import TabPane from 'components/Tab/TabPane';
 import Mint from 'pagesComponents/Mint';
 import Fractional from 'pagesComponents/Fractional';
 import Swap from 'pagesComponents/Swap';
-import Deposit from 'pagesComponents/Deposit';
+import Liquidity from 'pagesComponents/Liquidity';
 import Faucet from 'pagesComponents/Faucet';
 
 export default function Index(props) {
@@ -70,9 +70,9 @@ export default function Index(props) {
                                 ripple="light"
                                 className={openTab === 4 ? "text-dark" : "text-gray-400"}
                                 active={openTab === 4 ? true : false}
-                                href="lending"
+                                href="liquidity"
                               >
-                              Lending
+                              Liquidity
                           </TabItem>
                           <TabItem
                                 onClick={(e) => {
@@ -82,7 +82,7 @@ export default function Index(props) {
                                 ripple="light"
                                 className={openTab === 5 ? "text-dark" : "text-gray-400"}
                                 active={openTab === 5 ? true : false}
-                                href="lending"
+                                href="faucet"
                               >
                               Faucet
                           </TabItem>
@@ -98,7 +98,7 @@ export default function Index(props) {
                             <Swap {...props}/>
                           </TabPane>
                           <TabPane active={openTab === 4 ? true : false}>
-                            <Deposit {...props}/>
+                            <Liquidity {...props}/>
                           </TabPane>
                           <TabPane active={openTab === 5 ? true : false}>
                             <Faucet {...props}/>

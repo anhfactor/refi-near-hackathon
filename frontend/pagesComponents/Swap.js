@@ -61,7 +61,7 @@ export default function Swap(props) {
         <>
             <CardBody>
                 <div className="flex justify-center">
-                    <Heading5>Swap Coin</Heading5>
+                    <Heading5>Swap your PVF</Heading5>
                 </div>
                     <div class="relative flex w-full flex-wrap items-stretch">
                     <span class="z-10 h-full leading-snug font-normal absolute text-center absolute bg-transparent rounded text-base items-center justify-center font-bold pl-3 py-3">
