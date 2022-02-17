@@ -12,6 +12,21 @@ import ModalFooter from "components/Modal/ModalFooter";
 import Button from 'components/Button/Button';
 import BackgroundImage from 'assets/img/backgroundImage.jpeg';
 
+const networks = {
+  aurora_testnet: {
+    chainId: `0x${Number(process.env.NEXT_PUBLIC_CHAIN_ID).toString(16)}`,
+    // chainId: `${process.env.NEXT_PUBLIC_CHAIN_ID}`,
+    chainName: `${process.env.NEXT_PUBLIC_CHAIN_NAME}`,
+    nativeCurrency: {
+      name: `${process.env.NEXT_PUBLIC_CHAIN_SNAME}`,
+      symbol: `${process.env.NEXT_PUBLIC_CHAIN_SYMBOL}`,
+      decimals: 18
+    },
+    rpcUrls: [`${process.env.NEXT_PUBLIC_CHAIN_rpcUrls}`],
+    blockExplorerUrls: [`${process.env.NEXT_PUBLIC_CHAIN_blockExplorerUrls}`]
+  }
+}
+
 export default class MyApp extends App {
     constructor(props) {
       super(props);
@@ -68,6 +83,17 @@ export default class MyApp extends App {
       }
     }
 
+    async handleNetworkSwitch(networkName = "aurora_testnet") {
+      await ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            ...networks[networkName]
+          }
+        ]
+      });
+    }
+
     // detect when change chainId from metamask
     async handleChangeChainId(chainId) {
       let chainIdInt = await parseInt(chainId, 16);
@@ -105,6 +131,7 @@ export default class MyApp extends App {
             showModal: true,
             isWrongNetwork: false
           })
+          this.handleNetworkSwitch();
           return
         }
       } catch (error) {
@@ -176,6 +203,7 @@ export default class MyApp extends App {
             <Component {...pageProps}
               connectWallet={() => this._connectWallet()}
               disconnectWallet={() => this._disconnectWallet()}
+              handleNetworkSwitch={() => this.handleNetworkSwitch()}
               address={this.state.address}
               isOpenPopver={this.state.isOpenPopver}
               popoverColor={this.state.popoverColor}
