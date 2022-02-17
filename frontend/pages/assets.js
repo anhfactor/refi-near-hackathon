@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react'
 import Header from 'components/Documentation/Header';
 import IndexNavbar from 'pagesComponents/IndexNavbar';
 import IndexFooter from 'pagesComponents/IndexFooter';
@@ -12,8 +12,35 @@ import Heading6 from 'components/Typography/Heading6';
 import Image from 'components/Image/Image';
 import Button from 'components/Button/Button';
 import Link from "next/link";
+import axios from 'axios'
+
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000/api'
 
 export default function Index(props) {
+    const [tokens, setTokens] = useState([])
+    const [nfts, setNfts] = useState([])
+
+    useEffect(() => {
+        if (tokens && tokens.length) return
+        axios.get(`${baseUrl}/`).then(({ data }) => {
+          setTokens(data)
+          loadNFTs(data)
+        })
+      }, [])
+
+    async function loadNFTs(data) {
+        const items = await Promise.all(data.map(async i => {
+          return {
+            tokenId: i.number,
+            name: i.name,
+            image: i.image,
+            owner: i.address
+          }
+        }))
+        setNfts(items)
+        console.log(data)
+      }
+
     return (
         <>
             <Page>
@@ -36,58 +63,31 @@ export default function Index(props) {
                                 </Button>
                             </Link>
                         </div>
+                        {props.address ? <>
                             <div class="container">
                                 <div class="flex flex-wrap gap-12 mt-10">
-                                    <div class="w-64 text-center" style={{justifyContent:"center"}}>
-                                        <img src="https://refi-backend.herokuapp.com/api/images/example.png" class="rounded-xl  max-w-full h-auto align-middle border-none undefined"/>
-                                        <Heading6 class="text-xl text-blue-gray-700 mt-4">A</Heading6>
-                                        <Button
-                                            color="lightBlue"
-                                            buttonType="filled"
-                                            size="sm"
-                                            ripple="light"
-                                        >
-                                            <i class="fas fa-share-square"></i> Transfer
-                                        </Button>
-                                    </div>
+                                    {nfts.map((nft, i) => (
+                                        nft.owner.toUpperCase() == props.address.toUpperCase() ? <>
                                     <div class="w-64 text-center">
-                                        <img src="https://refi-backend.herokuapp.com/api/images/example.png" class="rounded-xl  max-w-full h-auto align-middle border-none undefined"/>
-                                        <Heading6 class="text-xl text-blue-gray-700 mt-4">B</Heading6>
+                                        <img alt={nft.name} src={nft.image}
+                                        class="rounded-xl  max-w-full h-auto align-middle border-none undefined"
+                                        />
+                                        <Heading6 class="text-xl text-blue-gray-700 mt-4">{nft.name}</Heading6>
                                         <Button
                                             color="lightBlue"
                                             buttonType="filled"
                                             size="sm"
                                             ripple="light"
+                                            onClick={() => {}}
                                         >
                                             <i class="fas fa-share-square"></i> Transfer
                                         </Button>
                                     </div>
-                                    <div class="w-64 text-center">
-                                        <img src="https://refi-backend.herokuapp.com/api/images/example.png" class="rounded-xl  max-w-full h-auto align-middle border-none undefined"/>
-                                        <Heading6 class="text-xl text-blue-gray-700 mt-4">A</Heading6>
-                                        <Button
-                                            color="lightBlue"
-                                            buttonType="filled"
-                                            size="sm"
-                                            ripple="light"
-                                        >
-                                            <i class="fas fa-share-square"></i> Transfer
-                                        </Button>
-                                    </div>
-                                    <div class="w-64 text-center">
-                                        <img src="https://refi-backend.herokuapp.com/api/images/example.png" class="rounded-xl  max-w-full h-auto align-middle border-none undefined"/>
-                                        <Heading6 class="text-xl text-blue-gray-700 mt-4">B</Heading6>
-                                        <Button
-                                            color="lightBlue"
-                                            buttonType="filled"
-                                            size="sm"
-                                            ripple="light"
-                                        >
-                                            <i class="fas fa-share-square"></i> Transfer
-                                        </Button>
-                                    </div>
+                                    </> : ""
+                                    ))
+                                    }
                                 </div>
-                            </div>
+                            </div></> : <></>}
                         </CardBody>
                         <CardFooter></CardFooter>
                     </Card>

@@ -15,7 +15,6 @@ import BackgroundImage from 'assets/img/backgroundImage.jpeg';
 const networks = {
   aurora_testnet: {
     chainId: `0x${Number(process.env.NEXT_PUBLIC_CHAIN_ID).toString(16)}`,
-    // chainId: `${process.env.NEXT_PUBLIC_CHAIN_ID}`,
     chainName: `${process.env.NEXT_PUBLIC_CHAIN_NAME}`,
     nativeCurrency: {
       name: `${process.env.NEXT_PUBLIC_CHAIN_SNAME}`,
@@ -33,6 +32,7 @@ export default class MyApp extends App {
       this.state = { address: undefined, 
                     modalMessage: "You have connected.", 
                     showModal: false,
+                    showModalTransfer: true,
                     isWrongNetwork: true
                   };
       this.handleAccountsChanged = this.handleAccountsChanged.bind(this)
@@ -55,6 +55,12 @@ export default class MyApp extends App {
     setModal(value) {
       this.setState({
         showModal: value
+      })
+    }
+
+    setModalTransfer(value) {
+      this.setState({
+        showModalTransfer: value
       })
     }
   
@@ -186,6 +192,24 @@ export default class MyApp extends App {
                         color="red"
                         buttonType="link"
                         onClick={(e) => this.setModal(false)}
+                        ripple="dark"
+                    >
+                        Close
+                    </Button>
+                </ModalFooter>
+            </Modal>
+          {/* Modal message transfer */}
+          <Modal size="lg" active={this.state.showModalTransfer} toggler={() => this.setModalTransfer(false)}>
+                <ModalBody>
+                    <p className="text-base leading-relaxed text-gray-600 font-normal">
+                        {this.state.modalMessage}
+                    </p>
+                </ModalBody>
+                <ModalFooter>
+                    <Button 
+                        color="red"
+                        buttonType="link"
+                        onClick={(e) => this.setModalTransfer(false)}
                         ripple="dark"
                     >
                         Close
