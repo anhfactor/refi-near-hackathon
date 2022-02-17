@@ -43,8 +43,8 @@ const init = async () => {
    app.use(cors())
    app.use(jsonBodyParser())
 
-   app.use('/images', express.static(path.resolve(__dirname, 'images')))
-   app.use('/api/images', express.static(path.resolve(__dirname, 'images')))
+   app.use('/certificates', express.static(path.resolve(__dirname, 'certificates')))
+   app.use('/api/certificates', express.static(path.resolve(__dirname, 'certificates')))
 
    if (process.env.STATIC_FRONTEND_PATH) {
       logger.info(`Serving frontend from ${process.env.STATIC_FRONTEND_PATH}`)

@@ -3,6 +3,7 @@ import CardBody from 'components/Card/CardBody';
 import CardFooter from 'components/Card/CardFooter';
 import InputIcon from 'components/Input/InputIcon';
 import Button from 'components/Button/Button';
+import Heading6 from 'components/Typography/Heading6'
 
 export default function Swap(props) {
     return(

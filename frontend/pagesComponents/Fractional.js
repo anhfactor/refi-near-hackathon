@@ -24,15 +24,7 @@ export default function Fractional(props) {
           loadNFTs(data)
         })
       }, [])
-      // This method checks if Metamask selected network is Localhost:8545 
-      async function _checkNetwork() {
-        if (window.ethereum.networkVersion === BUIDLER_EVM_NETWORK_ID) {
-          return true
-        }
-        setShowModal(true)
-        return false
-      }
-    
+      
       async function loadNFTs(data) {
         try {
           const items = await Promise.all(data.map(async i => {

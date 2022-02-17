@@ -6,6 +6,7 @@ import Button from 'components/Button/Button';
 import  { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import { mint, getNextId } from '../helper/OwnerShipCreator'
+import Textarea from 'components/Textarea/Textarea'
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000/api'
 
@@ -41,7 +42,7 @@ export default function Mint(props) {
       const contractDefault = () => ({
         address: '',
         number: 0,
-        image: `${baseUrl}/images/example.png`
+        image: `${baseUrl}/certificates/picture.png`
       })
       const [contract, setContract] = useState(contractDefault())
 
@@ -65,7 +66,7 @@ export default function Mint(props) {
     return(
         <>
             <CardBody>
-                <div className="mb-10">
+                <div className="mb-5">
                     <InputIcon
                         type="text"
                         color="lightBlue"
@@ -76,7 +77,7 @@ export default function Mint(props) {
                         value={tokenId}
                     />
                 </div>
-                <div className="mb-10">
+                <div className="mb-5">
                     <InputIcon
                         type="text"
                         color="lightBlue"
@@ -85,13 +86,22 @@ export default function Mint(props) {
                         onChange={(e) => contract.name = e.currentTarget.value}
                     />
                 </div>
+                <div className="mb-5">
+                    <Textarea
+                        color="lightBlue"
+                        size="sm"
+                        outline={true}
+                        placeholder="Asset Description *"
+                        value={contract.description}
+                        onChange={(e) => contract.description = e.currentTarget.value}
+                    />
+                </div>
                 <div className="">
                     <InputIcon
                         type="text"
                         color="lightBlue"
                         placeholder="Enter Certificate URI *"
-                        disabled
-                        value={`${baseUrl}/images/example.png`}
+                        value={`${baseUrl}/certificates/picture.png`}
                         onChange={(e) => contract.image = e.currentTarget.value}
                     />
                 </div>
