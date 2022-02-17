@@ -38,7 +38,6 @@ export default function Index(props) {
           }
         }))
         setNfts(items)
-        console.log(data)
       }
 
     return (
@@ -78,7 +77,10 @@ export default function Index(props) {
                                             buttonType="filled"
                                             size="sm"
                                             ripple="light"
-                                            onClick={() => {}}
+                                            onClick={() => {
+                                                props.setTokenId(nft.tokenId)
+                                                props.setModalTransfer()
+                                            }}
                                         >
                                             <i class="fas fa-share-square"></i> Transfer
                                         </Button>

@@ -11,6 +11,11 @@ import ModalBody from "components/Modal/ModalBody";
 import ModalFooter from "components/Modal/ModalFooter";
 import Button from 'components/Button/Button';
 import BackgroundImage from 'assets/img/backgroundImage.jpeg';
+import InputIcon from 'components/Input/InputIcon';
+import { transferContract } from "helper/OwnerShipCreator"
+import axios from 'axios'
+
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000/api'
 
 const networks = {
   aurora_testnet: {
@@ -32,11 +37,14 @@ export default class MyApp extends App {
       this.state = { address: undefined, 
                     modalMessage: "You have connected.", 
                     showModal: false,
-                    showModalTransfer: true,
-                    isWrongNetwork: true
+                    showModalTransfer: false,
+                    isWrongNetwork: true,
+                    assetsTokenId: '',
+                    receiverAddress: ''
                   };
       this.handleAccountsChanged = this.handleAccountsChanged.bind(this)
       this.handleChangeChainId = this.handleChangeChainId.bind(this)
+      this.handleTokenId= this.handleTokenId.bind(this)
     }
     async componentDidMount() {
       const provider = await detectEthereumProvider();
@@ -58,10 +66,10 @@ export default class MyApp extends App {
       })
     }
 
-    setModalTransfer(value) {
-      this.setState({
-        showModalTransfer: value
-      })
+    setModalTransfer() {
+      this.setState(prevState =>({
+        showModalTransfer: !prevState.showModalTransfer
+      }))
     }
   
     static async getInitialProps({ Component, router, ctx }) {
@@ -72,6 +80,11 @@ export default class MyApp extends App {
       }
   
       return { pageProps };
+    }
+
+    handleTokenId = (value) => {
+      console.log(value)
+      this.setState({assetsTokenId: value});
     }
   
     // For now, 'eth_accounts' will continue to always return an array
@@ -87,6 +100,10 @@ export default class MyApp extends App {
           address: accounts[0]
         })
       }
+    }
+
+    setReceiverAddress(value) {
+      this.setState({ receiverAddress: value })
     }
 
     async handleNetworkSwitch(networkName = "aurora_testnet") {
@@ -131,6 +148,7 @@ export default class MyApp extends App {
               console.error(err);
             }
           });
+          console.log()
         if (ethereum.networkVersion !== process.env.NEXT_PUBLIC_CHAIN_ID) {
           this.setState({
             modalMessage: `Please connect to ${process.env.NEXT_PUBLIC_CHAIN_NAME}. ChainId: ${process.env.NEXT_PUBLIC_CHAIN_ID} `,
@@ -152,6 +170,18 @@ export default class MyApp extends App {
       this.setState({
         address: undefined
       })  
+    }
+
+    async _transferContract() {
+      let body = { "ownerAddress": this.state.address.toLowerCase() , "receiverAddress": this.state.receiverAddress.toLowerCase() }
+  
+      // change in smartcontract
+      await transferContract(this.state.assetsTokenId, this.state.address, this.state.receiverAddress)
+      // // change in server
+      const metadata = await axios.put(`${baseUrl}/${this.state.assetsTokenId}`, body)
+      console.log(`Response body: `, metadata)
+  
+      window.location.href = '/assets'
     }
   
     render() {
@@ -199,20 +229,57 @@ export default class MyApp extends App {
                 </ModalFooter>
             </Modal>
           {/* Modal message transfer */}
-          <Modal size="lg" active={this.state.showModalTransfer} toggler={() => this.setModalTransfer(false)}>
+          <Modal size="lg" active={this.state.showModalTransfer} toggler={() => this.setModalTransfer()}>
+              <ModalHeader toggler={() => setModalTransfer()}>
+                    Transfer NFT: from Owner to Receiver 
+                </ModalHeader>
                 <ModalBody>
-                    <p className="text-base leading-relaxed text-gray-600 font-normal">
-                        {this.state.modalMessage}
-                    </p>
+                  <div className="mb-10">
+                      <InputIcon
+                          type="text"
+                          color="lightBlue"
+                          placeholder="Certificate ID *"
+                          iconName="fa-id-badge"
+                          iconFamily="font-awesome"
+                          disabled
+                          value={this.state.assetsTokenId}
+                      />
+                  </div>
+                  <div className="mb-10">
+                      <InputIcon
+                          type="text"
+                          color="lightBlue"
+                          placeholder="Owner address *"
+                          disabled
+                          value={this.state.address}
+                      />
+                  </div>
+                  <div className="">
+                      <InputIcon
+                          type="text"
+                          color="lightBlue"
+                          placeholder="Receiver address *"
+                          value={this.state.receiverAddress}
+                          onChange={(e) => { this.setReceiverAddress(e.currentTarget.value) }}
+                      />
+                  </div>
                 </ModalBody>
                 <ModalFooter>
                     <Button 
                         color="red"
                         buttonType="link"
-                        onClick={(e) => this.setModalTransfer(false)}
+                        onClick={() => this.setModalTransfer()}
                         ripple="dark"
                     >
                         Close
+                    </Button>
+
+                    <Button
+                        color="green"
+                        onClick={() => this._transferContract()}
+                        ripple="light"
+                    >
+                        Confirm
                     </Button>
                 </ModalFooter>
             </Modal>
@@ -228,6 +295,8 @@ export default class MyApp extends App {
               connectWallet={() => this._connectWallet()}
               disconnectWallet={() => this._disconnectWallet()}
               handleNetworkSwitch={() => this.handleNetworkSwitch()}
+              setModalTransfer={() => this.setModalTransfer()}
+              setTokenId={this.handleTokenId}
               address={this.state.address}
               isOpenPopver={this.state.isOpenPopver}
               popoverColor={this.state.popoverColor}
