@@ -20,6 +20,7 @@
     "@babel/runtime": "^7.14.0",
     "@metamask/detect-provider": "^1.2.0",
     "@tippyjs/react": "^4.2.5",
+    "bignumber.js": "^9.0.2",
     "ethers": "^5.5.4",
     "material-icons": "^0.6.4",
     "material-ripple-effects": "^2.0.1",
