@@ -89,19 +89,19 @@ export default function Index(props) {
                       </TabList>
                         <TabContent>
                           <TabPane active={openTab === 1 ? true : false}>
-                            <Mint/>
+                            <Mint {...props}/>
                           </TabPane>
                           <TabPane active={openTab === 2 ? true : false}>
-                            <Fractional/>
+                            <Fractional {...props}/>
                           </TabPane>
                           <TabPane active={openTab === 3 ? true : false}>
-                            <Swap/>
+                            <Swap {...props}/>
                           </TabPane>
                           <TabPane active={openTab === 4 ? true : false}>
-                            <Deposit/>
+                            <Deposit {...props}/>
                           </TabPane>
                           <TabPane active={openTab === 5 ? true : false}>
-                            <Faucet/>
+                            <Faucet {...props}/>
                           </TabPane>
                       </TabContent>
                     </Card>

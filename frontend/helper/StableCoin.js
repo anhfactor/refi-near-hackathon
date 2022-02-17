@@ -27,3 +27,16 @@ export const getBalanceStableCoin = async (address) => {
 
     return result
 }
+
+// request eEUR token
+export const requestTokens = async () => {
+    const account = await getAccount()
+    if (!account) throw new Error('Not ready')
+
+    const { signer } = account
+
+    const stableCoin = await contractStableCoin(signer)
+    const result = stableCoin.requestTokens()
+
+    return result
+}
