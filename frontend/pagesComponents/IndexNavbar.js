@@ -17,7 +17,6 @@ import { getBalanceOwnerNFT } from '../helper/OwnerShipCreator'
 import { getBalanceReEUR } from '../helper/Lending'
 
 export default function IndexNavbar(props) {
-    const [openNavbar, setOpenNavbar] = useState(false);
     const [balanceStableCoin, setBalanceStableCoin] = useState(0)
     const [balanceFraction, setBalanceFraction] = useState(0)
     const [balanceOwnerNFT, setBalanceOwnerNFT] = useState(0)
@@ -25,7 +24,6 @@ export default function IndexNavbar(props) {
 
     // Get balance of stable coin, NFT
     async function _getAccountDetail() {
-        alert(1)
         let _balanceStableCoin = await getBalanceStableCoin(props.address)
         let _balanceFraction = await getBalanceFraction(props.address)
         let _balanceOwnerNFT = await getBalanceOwnerNFT(props.address)
@@ -35,7 +33,7 @@ export default function IndexNavbar(props) {
         setBalanceFraction(_balanceFraction.toString())
         setBalanceOwnerNFT(_balanceOwnerNFT.toString())
         setBalanceReEUR(_balanceReEUR.toString())
-        console.log(_balanceReEUR)
+        console.log(_balanceStableCoin)
     }
 
     return (
@@ -86,24 +84,42 @@ export default function IndexNavbar(props) {
                             </> :
                                 <>
                                     {props.isWrongNetwork ? 
-                                    <Dropdown
-                                        color="blueGray"
-                                        placement="bottom-end"
-                                        buttonText={props.address.substr(0, 12)}
-                                        buttonType="filled"
-                                        size="regular"
-                                        rounded={false}
-                                        block={false}
-                                        ripple="light"
-                                        onClick={() => alert('hello')}
-                                    >
-                                        <DropdownItem color="blueGray" ripple="light" onClick={() => alert('hello')}>
-                                            <i class="fas fa-coins"></i>  Your assets
-                                        </DropdownItem>
-                                        <DropdownItem color="blueGray" ripple="light" onClick={props.disconnectWallet}>
-                                            <i class="fas fa-sign-out-alt"></i> Log out
-                                        </DropdownItem>
-                                    </Dropdown>
+                                    <div onClick={_getAccountDetail}>
+                                        <Dropdown
+                                            color="blueGray"
+                                            placement="bottom-end"
+                                            buttonText={props.address.substr(0, 12)}
+                                            buttonType="filled"
+                                            size="regular"
+                                            rounded={false}
+                                            block={false}
+                                            ripple="light"
+                                        >
+                                            <DropdownItem color="blueGray" ripple="light" style={{textTransform: "none"}}>
+                                                <i class="fas fa-coins"></i>  NFT fractions: {balanceFraction} PVF
+                                            </DropdownItem>
+                                            <DropdownItem color="blueGray" ripple="light" style={{textTransform: "none"}}>
+                                                <i class="fas fa-coins"></i>  NFTs: {balanceOwnerNFT}
+                                            </DropdownItem>
+                                            <DropdownItem color="blueGray" ripple="light" style={{textTransform: "none"}}>
+                                                <i class="fas fa-coins"></i>  Balance: {balanceStableCoin} eEUR
+                                            </DropdownItem>
+                                            <DropdownItem color="blueGray" ripple="light" style={{textTransform: "none"}}>
+                                                <i class="fas fa-coins"></i>  RE Balance: {balanceReEUR} ReEUR  
+                                            </DropdownItem>
+                                            <hr/>
+                                            <Link href="/assets" as={`/assets`}>
+                                                <DropdownItem color="blueGray" ripple="light">
+                                                        <a>
+                                                            <i class="fas fa-money-check"></i>  Your assets
+                                                        </a>
+                                                </DropdownItem>
+                                            </Link>
+                                            <DropdownItem color="blueGray" ripple="light" onClick={props.disconnectWallet}>
+                                                <i class="fas fa-sign-out-alt"></i> Log out
+                                            </DropdownItem>
+                                        </Dropdown>
+                                    </div>
                                     : <>
                                     <Button
                                         color="red"

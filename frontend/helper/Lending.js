@@ -21,7 +21,7 @@ export const approveLending = async (amountLending) => {
 
     const { signer } = account
     const stableCoin = await contractStableCoin(signer)
-    var amount = (new BigNumber(amountLending)).shiftedBy(17).toString()
+    var amount = (new BigNumber(amountLending)).toString()
     const result = await stableCoin.approve(process.env.NEXT_PUBLIC_REEUR, amount)
     return result;
 }
@@ -32,7 +32,7 @@ export const supplyLending = async (amountLending) => {
 
     const { signer } = account
     const tokenReEUR = await contractReEUR(signer)
-    var amount = (new BigNumber(amountLending)).shiftedBy(17).toString()
+    var amount = (new BigNumber(amountLending)).toString()
 
     const result = await tokenReEUR.mint(amount)
     return result;
@@ -58,7 +58,7 @@ export const redeem = async (amountRedeem) => {
 
     const { signer } = account
     const tokenReEUR = await contractReEUR(signer)
-    var amount = (new BigNumber(amountRedeem)).shiftedBy(7).toString()
+    var amount = (new BigNumber(amountRedeem)).toString()
     const result = await tokenReEUR.redeem(amount)
 
     return result

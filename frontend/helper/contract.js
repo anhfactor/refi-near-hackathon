@@ -40,6 +40,9 @@ export const contractOwnerShipCreator = (signer) => {
  Contract StableCoin.sol
 */
 export const contractStableCoin = (signer) => {
+    console.log(signer)
+    console.log(process.env.NEXT_PUBLIC_STABLECOIN)
+    console.log(StableCoin.abi)
     return new Contract(
         process.env.NEXT_PUBLIC_STABLECOIN,
         StableCoin.abi,

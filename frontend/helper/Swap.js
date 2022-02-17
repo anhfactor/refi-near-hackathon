@@ -47,9 +47,7 @@ export const getAmountOut = async (address1, address2, amountIn) => {
             10000 - amountIn
         );
         const amount_out = ethers.utils.formatEther(values_out);
-        var hexString = amount_out.toString(16);
-        var amount = hexString * 1E18 - 1
-        return amount
+        return amount_out
     } catch (err) {
         console.log(err)
         return false;

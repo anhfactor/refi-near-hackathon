@@ -289,7 +289,7 @@ const Button = forwardRef(
 
         const sharedClasses = [
             block && 'w-full',
-            'flex',
+            // 'flex',
             'items-center',
             'justify-center',
             'gap-1',
