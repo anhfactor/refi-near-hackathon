@@ -60,7 +60,7 @@ export default function Fractional(props) {
         if (nftFraction == null) {
           alert("Please choose NFT")
         } else {
-          const fundAmount = 10000000
+          const fundAmount = 1000000000000000
           console.log(`#${fundAmount} approve Fund`)
           const result = await approveFund(fundAmount)
           console.log(result)
