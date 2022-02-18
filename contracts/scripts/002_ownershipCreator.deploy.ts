@@ -42,7 +42,7 @@ async function main() {
     "number": config.certificateId,
     "image": `${metadataUrl}images/example.png`,
     "name": "Certificate of Ownership for PV",
-    "description": `This is to certify that ${bobAddress}, \nis owner of the digital asset with the ID ${config.certificateId} that represents ownership of the PV-system on the musterstr. 99 with nominal capacity of 5kWp, on ${isLocal ? "metis local" : "metis testnet (stardust ID:588)"}.\nContract address: \n${contracts.OwnershipCreator!.address}\n`
+    "description": `This is to certify that ${bobAddress}, \nis owner of the digital asset with the ID ${config.certificateId} that represents ownership of the PV-system on the musterstr. 99 with nominal capacity of 5kWp, on ${isLocal ? "local" : "testnet"}.\nContract address: \n${contracts.OwnershipCreator!.address}\n`
   }
 
   const metadataPath = path.join(buildPath, `${config.certificateId}.json`)

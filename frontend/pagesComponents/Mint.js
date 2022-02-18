@@ -110,7 +110,7 @@ export default function Mint(props) {
                 <div className="flex justify-center">
                     <Button
                         color="lightBlue"
-                        size="lg"
+                        size="regular"
                         ripple="dark"
                         onClick={createContract}
                     >

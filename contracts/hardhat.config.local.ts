@@ -25,7 +25,7 @@ try {
   accounts.push(...readLocalPrivateKeys())
 } catch(e) {
   logger.error(e)
-  logger.info(`\n\n\tFailed to load local Metis private keys. \n\tPlease run 'make mvm/extract-keys' to export private keys!\n`)
+  logger.info(`\n\n\tFailed to load local private keys. \n\tPlease run 'make mvm/extract-keys' to export private keys!\n`)
   process.exit(1)
 }
 

@@ -6,9 +6,6 @@ OPS_PATH=$(REPO_PATH)/ops
 mvm/clear:
 	rm -rf $(REPO_PATH) || true
 
-mvm/setup/clone:
-	git clone https://github.com/MetisProtocol/mvm || true
-
 mvm/setup/install:
 	cd $(REPO_PATH) && yarn install && yarn clean && yarn build
 

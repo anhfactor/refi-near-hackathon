@@ -76,6 +76,9 @@ export default function Fractional(props) {
           console.log(`${tokenId} fraction ${fractionAmount}`)
           const result = await fractionalise(tokenId, fractionAmount)
           console.log(result)
+          const metadata = await axios.delete(`${baseUrl}/${tokenId}`)
+          console.log(metadata)
+          window.location.href = '/assets'
         }
       }
 

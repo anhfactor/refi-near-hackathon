@@ -12,7 +12,7 @@ Start with `cd backend && yarn start`
 
 See [contracts README](./contracts/README.md)
 
-## Start a local Metis node
+## Start a local node
 
 Use the Makefile in the root folder. 
 

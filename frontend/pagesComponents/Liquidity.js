@@ -50,16 +50,16 @@ export default function Liquidity(props) {
       }
     return(
         <>
-           <div className="w-full">
+           <div className="w-full mt-4">
                     <ul
-                      className="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
+                      className="flex justify-center"
                       role="tablist"
                     >
-                      <li className="flex-auto text-center">
+                      <li className="text-center mr-4">
                         {openTab === 1 ? 
                             <Button
                                 color="lightBlue"
-                                size="lg"
+                                size="regular"
                                 ripple="dark"
                                 onClick={e => {
                                     e.preventDefault()
@@ -71,7 +71,7 @@ export default function Liquidity(props) {
                                 <Button
                                 color="lightBlue"
                                 buttonType="outline"
-                                size="lg"
+                                size="regular"
                                 ripple="dark"
                                 onClick={e => {
                                     e.preventDefault()
@@ -81,11 +81,11 @@ export default function Liquidity(props) {
                             <i class="fas fa-coins"></i> Supply
                         </Button>}
                       </li>
-                      <li className="flex-auto text-center">
+                      <li className="text-center mr-4">
                           {openTab === 2 ? 
                             <Button
                                 color="lightBlue"
-                                size="lg"
+                                size="regular"
                                 ripple="dark"
                                 onClick={e => {
                                     e.preventDefault()
@@ -97,7 +97,7 @@ export default function Liquidity(props) {
                                 <Button
                                 color="lightBlue"
                                 buttonType="outline"
-                                size="lg"
+                                size="regular"
                                 ripple="dark"
                                 onClick={e => {
                                     e.preventDefault()
@@ -107,11 +107,11 @@ export default function Liquidity(props) {
                             <i class="fas fa-hand-holding-usd"></i>  Borrow
                         </Button>}
                       </li>
-                      <li className="flex-auto text-center">
+                      <li className="text-center mr-4">
                         {openTab === 3 ? 
                             <Button
                                 color="lightBlue"
-                                size="lg"
+                                size="regular"
                                 ripple="dark"
                                 onClick={e => {
                                     e.preventDefault()
@@ -123,7 +123,7 @@ export default function Liquidity(props) {
                                 <Button
                                 color="lightBlue"
                                 buttonType="outline"
-                                size="lg"
+                                size="regular"
                                 ripple="dark"
                                 onClick={e => {
                                     e.preventDefault()
@@ -157,7 +157,7 @@ export default function Liquidity(props) {
                             </div>
                             <Button
                                 color="lightBlue"
-                                size="lg"
+                                size="regular"
                                 ripple="dark"
                                 onClick={_supply}
                                 >
@@ -184,7 +184,7 @@ export default function Liquidity(props) {
                             </div>
                             <Button
                                 color="lightBlue"
-                                size="lg"
+                                size="regular"
                                 ripple="dark"
                                 onClick={_borrow}
                                 >
@@ -210,7 +210,7 @@ export default function Liquidity(props) {
                             </div>
                             <Button
                                 color="lightBlue"
-                                size="lg"
+                                size="regular"
                                 ripple="dark"
                                 onClick={_redeem}
                                 >

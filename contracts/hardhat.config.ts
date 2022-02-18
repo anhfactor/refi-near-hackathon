@@ -31,7 +31,6 @@ task("export-contracts", "Prints the list of accounts", async (taskArgs, hre) =>
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
-// metis network config https://docs.metis.io/building-on-metis/connection-details#testnet-rinkeby
 // ethereum hardhat config https://github.com/paulrberg/solidity-template/blob/main/hardhat.config.ts
 
 const config: HardhatUserConfig = {
