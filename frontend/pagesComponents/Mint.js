@@ -8,17 +8,21 @@ import axios from 'axios'
 import { mint, getNextId } from '../helper/OwnerShipCreator'
 import Textarea from 'components/Textarea/Textarea'
 import Radio from 'components/Radio/Radio'
+import Image from 'components/Image/Image'
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000/api'
+const certificateUrl = process.env.NEXT_PUBLIC_BASE || 'http://localhost:5000'
 
 export default function Mint(props) {
     const [radioInput, setRadioInput] = useState(true);
     const [radioUpload, setRadioUpload] = useState(false);
     const [tokenId, setTokenId] = useState(""); // get next token ID on chain
     const [tokens, setTokens] = useState([])
-    const [certificateImage, setCertificateImage] = useState(`${baseUrl}/certificates/picture.png`)
+    const [certificateImage, setCertificateImage] = useState(`${baseUrl}/certificates/01.png`)
     const [contractName, setContractName] = useState("")
     const [contractDescription, setContractDescription] = useState("")
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [uploadImage, setUploadImage] = useState(undefined);
 
 
     useEffect(async () => {
@@ -52,6 +56,26 @@ export default function Mint(props) {
         }
     }
 
+    async function uploadCertificate(file) {
+        onFileUpload(file)
+    }
+
+    // On file upload 
+    async function onFileUpload(selectedFile) { 
+        // Create an object of formData 
+        const formData = new FormData(); 
+       
+        // Update the formData object 
+        formData.append( 
+          "file", 
+          selectedFile, 
+          selectedFile.name
+        ); 
+       
+        const result = await axios.post(`${certificateUrl}/certificates`, formData); 
+        setUploadImage(result.data.filePath)
+      }; 
+
     const [account, setAccount] = useState({
         account: '',
         address: '',
@@ -60,7 +84,7 @@ export default function Mint(props) {
       const contractDefault = () => ({
         address: '',
         number: 0,
-        image: `${baseUrl}/certificates/picture.png`
+        image: `${certificateUrl}/certificates/01.png`
       })
 
       const [contract, setContract] = useState(contractDefault())
@@ -80,7 +104,7 @@ export default function Mint(props) {
         // const tokenURI = await mint(props.address, contract.number)
         // console.log(`id#${contract.number} minted contract`)
     
-        const metadata = await axios.post(`${baseUrl}/${contract.number}`, contract)
+        const metadata = await axios.post(`${certificateUrl}/${contract.number}`, contract)
         console.log(`id#${contract.number} created metadata`, metadata)
     
         // window.location.href = '/assets'
@@ -147,23 +171,32 @@ export default function Mint(props) {
                         onChange={(e) => setCertificateImage(e.target.value)}
                     />
                 : <div class="flex justify-center">
-                    <div class="mb-3 w-full">
-                        <label for="formFile" class="form-label inline-block mb-2 text-gray-700">Please upload certificate *</label>
+                    <div class="w-full">
+                        <label for="formFile" class="form-label inline-block mb-2 text-gray-700">Please upload certificate & Preview *</label>
                         <input class="form-control
-                        block
-                        w-full
-                        px-3
-                        py-1.5
-                        text-base
-                        font-normal
-                        text-gray-700
-                        bg-white bg-clip-padding
-                        border border-solid border-gray-300
-                        rounded
-                        transition
-                        ease-in-out
-                        m-0
-                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="formFile"/>
+                            block
+                            w-full
+                            px-3
+                            py-1.5
+                            text-base
+                            font-normal
+                            text-gray-700
+                            bg-white bg-clip-padding
+                            border border-solid border-gray-300
+                            rounded
+                            transition
+                            ease-in-out
+                            m-0
+                            focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="formFile"
+                            value={selectedFile}
+                            onChange={(e) => uploadCertificate(e.target.files[0])}
+                            />
+                        {uploadImage !== undefined ?
+                            <div class="flex mt-2">
+                                <a href={uploadImage} target="_blank" class="justify-center">
+                                    <Image src={uploadImage} style={{width:"20%"}}/>
+                                </a>
+                            </div> : ""}
                     </div>
                 </div>}
                 </div>

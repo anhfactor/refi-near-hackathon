@@ -207,7 +207,7 @@ export default function Textarea({
                     ${textareaClasses}
                     ${error && outline && 'mt-input-outline-error'}
                     ${success && outline && 'mt-input-outline-success'}`}
-                rows="7"
+                rows="3"
             />
             <label className={label}>
                 {outline ? (
