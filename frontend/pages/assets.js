@@ -30,12 +30,13 @@ export default function Index(props) {
 
     async function loadNFTs(data) {
         const items = await Promise.all(data.map(async i => {
-          return {
-            tokenId: i.number,
-            name: i.name,
-            image: i.image,
-            owner: i.address
-          }
+          if (i.number !== undefined) 
+            return {
+                tokenId: i.number,
+                name: i.name,
+                image: i.image,
+                owner: i.address
+            }
         }))
         setNfts(items)
       }
@@ -68,8 +69,9 @@ export default function Index(props) {
                                     {nfts.map((nft, i) => (
                                         nft.owner.toUpperCase() == props.address.toUpperCase() ? <>
                                     <div class="w-64 text-center">
-                                        <img alt={nft.name} src={nft.image}
+                                        <CardImage alt={nft.name} src={nft.image}
                                         class="rounded-xl  max-w-full h-auto align-middle border-none undefined"
+                                        style={{height: "200px", objectFit:"scale-down"}}
                                         />
                                         <Heading6 class="text-xl text-blue-gray-700 mt-4">{nft.name}</Heading6>
                                         <Button

@@ -18,7 +18,7 @@ export default function Mint(props) {
     const [radioUpload, setRadioUpload] = useState(false);
     const [tokenId, setTokenId] = useState(""); // get next token ID on chain
     const [tokens, setTokens] = useState([])
-    const [certificateImage, setCertificateImage] = useState(`${baseUrl}/certificates/01.png`)
+    const [certificateImage, setCertificateImage] = useState(`${certificateUrl}/certificates/01.png`)
     const [contractName, setContractName] = useState("")
     const [contractDescription, setContractDescription] = useState("")
     const [selectedFile, setSelectedFile] = useState(null);
@@ -74,6 +74,7 @@ export default function Mint(props) {
        
         const result = await axios.post(`${certificateUrl}/certificates`, formData); 
         setUploadImage(result.data.filePath)
+        setCertificateImage(result.data.filePath)
       }; 
 
     const [account, setAccount] = useState({
@@ -101,13 +102,13 @@ export default function Mint(props) {
     
         console.log(`id#${contract.number} form data`, contract)
     
-        // const tokenURI = await mint(props.address, contract.number)
-        // console.log(`id#${contract.number} minted contract`)
+        const tokenURI = await mint(props.address, contract.number)
+        console.log(`id#${contract.number} minted contract`)
     
-        const metadata = await axios.post(`${certificateUrl}/${contract.number}`, contract)
+        const metadata = await axios.post(`${baseUrl}/${contract.number}`, contract)
         console.log(`id#${contract.number} created metadata`, metadata)
     
-        // window.location.href = '/assets'
+        window.location.href = '/assets'
     
       }
     return(
