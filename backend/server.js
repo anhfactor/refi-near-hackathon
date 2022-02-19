@@ -50,12 +50,11 @@ const init = async () => {
 
    app.use('/certificates', express.static(path.resolve(__dirname, 'certificates'))) // default images
    app.use('/api/certificates', express.static(path.resolve(__dirname, 'certificates')))
-   app.use('/images', express.static(path.resolve(__dirname, 'images'))) // upload images
 
    // store image to upload
    var storage = multer.diskStorage({
       destination: function (req, file, cb) {
-        cb(null, 'images')
+        cb(null, 'certificates')
       },
       filename: function (req, file, cb) {
         cb(null, Date.now() + '.jpg') //Appending .jpg
@@ -63,7 +62,7 @@ const init = async () => {
     })
    var upload = multer({ storage: storage });
 
-   app.post('/images', upload.single('file'), (req, res) => {
+   app.post('/certificates', upload.single('file'), (req, res) => {
       if (!req.file) {
         console.log("No file received");
         return res.send({

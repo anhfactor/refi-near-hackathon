@@ -12,7 +12,8 @@ import Radio from 'components/Radio/Radio'
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000/api'
 
 export default function Mint(props) {
-    const [radioField, setRadioField] = useState(1);
+    const [radioInput, setRadioInput] = useState(true);
+    const [radioUpload, setRadioUpload] = useState(false);
     const [tokenId, setTokenId] = useState(""); // get next token ID on chain
     const [tokens, setTokens] = useState([])
     const [certificateImage, setCertificateImage] = useState(`${baseUrl}/certificates/picture.png`)
@@ -40,6 +41,16 @@ export default function Mint(props) {
     })
     }, [tokens])
     
+    async function changeRadioCerticate(value = "input") {
+        console.log(value)
+        if(value == "input") {
+            setRadioInput(true)
+            setRadioUpload(false)
+        } else {
+            setRadioInput(false)
+            setRadioUpload(true)
+        }
+    }
 
     const [account, setAccount] = useState({
         account: '',
@@ -114,17 +125,20 @@ export default function Mint(props) {
                         text="Input URI manual"
                         id="option-1"
                         name="option"
-                        
+                        checked={radioInput}
+                        onClick={(e) => changeRadioCerticate("input")}
                     />
-                        <Radio
-                            color="lightBlue"
-                            text="Upload Certificate"
-                            id="option-2"
-                            name="option"
-
-                        />
+                    <Radio
+                        color="lightBlue"
+                        text="Upload Certificate"
+                        id="option-2"
+                        name="option"
+                        checked={radioUpload}
+                        onClick={(e) => changeRadioCerticate("upload")}
+                    />
                 </div>
                 <div className="mt-5">
+                {radioInput ?
                     <InputIcon
                         type="text"
                         color="lightBlue"
@@ -132,6 +146,26 @@ export default function Mint(props) {
                         value={certificateImage}
                         onChange={(e) => setCertificateImage(e.target.value)}
                     />
+                : <div class="flex justify-center">
+                    <div class="mb-3 w-full">
+                        <label for="formFile" class="form-label inline-block mb-2 text-gray-700">Please upload certificate *</label>
+                        <input class="form-control
+                        block
+                        w-full
+                        px-3
+                        py-1.5
+                        text-base
+                        font-normal
+                        text-gray-700
+                        bg-white bg-clip-padding
+                        border border-solid border-gray-300
+                        rounded
+                        transition
+                        ease-in-out
+                        m-0
+                        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" id="formFile"/>
+                    </div>
+                </div>}
                 </div>
             </CardBody>
             <CardFooter>
