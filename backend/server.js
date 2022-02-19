@@ -4,6 +4,7 @@ const express = require('express')
 const { json: jsonBodyParser } = require('body-parser')
 const cors = require('cors')
 const basicAuth = require('express-basic-auth')
+const multer = require('multer');
 
 const { getConfig } = require('./lib/config')
 const { getLogger } = require('./lib/logger')
@@ -43,8 +44,42 @@ const init = async () => {
    app.use(cors())
    app.use(jsonBodyParser())
 
-   app.use('/certificates', express.static(path.resolve(__dirname, 'certificates')))
+   app.get('/', function(req, res) {
+      res.send('REFI backend');
+    })
+
+   app.use('/certificates', express.static(path.resolve(__dirname, 'certificates'))) // default images
    app.use('/api/certificates', express.static(path.resolve(__dirname, 'certificates')))
+   app.use('/images', express.static(path.resolve(__dirname, 'images'))) // upload images
+
+   // store image to upload
+   var storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, 'images')
+      },
+      filename: function (req, file, cb) {
+        cb(null, Date.now() + '.jpg') //Appending .jpg
+      }
+    })
+   var upload = multer({ storage: storage });
+
+   app.post('/images', upload.single('file'), (req, res) => {
+      if (!req.file) {
+        console.log("No file received");
+        return res.send({
+          success: false
+        });
+    
+      } else {
+        console.log('file received');
+        const host = req.hostname;
+        const filePath = req.protocol + "://" + host + '/' + req.file.path;
+        return res.send({
+          filePath: filePath,
+          success: true
+        })
+      }
+    });
 
    if (process.env.STATIC_FRONTEND_PATH) {
       logger.info(`Serving frontend from ${process.env.STATIC_FRONTEND_PATH}`)

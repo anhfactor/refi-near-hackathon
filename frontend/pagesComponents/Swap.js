@@ -108,7 +108,7 @@ export default function Swap(props) {
                 <div className="flex justify-center">
                     <Button
                         color="lightBlue"
-                        size="lg"
+                        size="regular"
                         ripple="dark"
                         onClick={swapToken}
                     >

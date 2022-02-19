@@ -7,12 +7,18 @@ import  { React, useEffect, useState } from 'react'
 import axios from 'axios'
 import { mint, getNextId } from '../helper/OwnerShipCreator'
 import Textarea from 'components/Textarea/Textarea'
+import Radio from 'components/Radio/Radio'
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000/api'
 
 export default function Mint(props) {
+    const [radioField, setRadioField] = useState(1);
     const [tokenId, setTokenId] = useState(""); // get next token ID on chain
     const [tokens, setTokens] = useState([])
+    const [certificateImage, setCertificateImage] = useState(`${baseUrl}/certificates/picture.png`)
+    const [contractName, setContractName] = useState("")
+    const [contractDescription, setContractDescription] = useState("")
+
 
     useEffect(async () => {
         if (tokens && tokens.length) return
@@ -33,6 +39,7 @@ export default function Mint(props) {
         address: props.address,
     })
     }, [tokens])
+    
 
     const [account, setAccount] = useState({
         account: '',
@@ -44,29 +51,34 @@ export default function Mint(props) {
         number: 0,
         image: `${baseUrl}/certificates/picture.png`
       })
+
       const [contract, setContract] = useState(contractDefault())
 
     const createContract = async (e) => {
         e.preventDefault()
         if (!props.address) return
-        contract.address = props.address.toLowerCase()
-        contract.number = tokenId
+        contract.address = await props.address.toLowerCase()
+        contract.number = await tokenId
+        contract.image = await certificateImage
+        contract.name = await contractName
+        contract.description = await contractDescription
+
     
         console.log(`id#${contract.number} form data`, contract)
     
-        const tokenURI = await mint(props.address, contract.number)
-        console.log(`id#${contract.number} minted contract`)
+        // const tokenURI = await mint(props.address, contract.number)
+        // console.log(`id#${contract.number} minted contract`)
     
         const metadata = await axios.post(`${baseUrl}/${contract.number}`, contract)
         console.log(`id#${contract.number} created metadata`, metadata)
     
-        window.location.href = '/assets'
+        // window.location.href = '/assets'
     
       }
     return(
         <>
             <CardBody>
-                <div className="mb-5">
+                <div className="mb-2">
                     <InputIcon
                         type="text"
                         color="lightBlue"
@@ -82,27 +94,43 @@ export default function Mint(props) {
                         type="text"
                         color="lightBlue"
                         placeholder="Asset Name *"
-                        value={contract.name}
-                        onChange={(e) => contract.name = e.currentTarget.value}
+                        value={contractName}
+                        onChange={(e) => setContractName(e.target.value)}
                     />
                 </div>
-                <div className="mb-5">
+                <div className="mb-2">
                     <Textarea
                         color="lightBlue"
                         size="sm"
                         outline={true}
                         placeholder="Asset Description *"
-                        value={contract.description}
-                        onChange={(e) => contract.description = e.currentTarget.value}
+                        value={contractDescription}
+                        onChange={(e) => setContractDescription(e.target.value)}
                     />
                 </div>
-                <div className="">
+                <div class="flex flex-wrap gap-x-8 gap-y-4">
+                    <Radio
+                        color="lightBlue"
+                        text="Input URI manual"
+                        id="option-1"
+                        name="option"
+                        
+                    />
+                        <Radio
+                            color="lightBlue"
+                            text="Upload Certificate"
+                            id="option-2"
+                            name="option"
+
+                        />
+                </div>
+                <div className="mt-5">
                     <InputIcon
                         type="text"
                         color="lightBlue"
                         placeholder="Enter Certificate URI *"
-                        value={`${baseUrl}/certificates/picture.png`}
-                        onChange={(e) => contract.image = e.currentTarget.value}
+                        value={certificateImage}
+                        onChange={(e) => setCertificateImage(e.target.value)}
                     />
                 </div>
             </CardBody>
