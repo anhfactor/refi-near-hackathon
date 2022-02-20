@@ -32,7 +32,7 @@ A file in `./contracts/build/local.keys` should have been created
 
 ## Contracts deployment
 
-We are going to deploy contracts on the local instance. From the `contrats` folder run
+We are going to deploy contracts on the local instance. From the `contracts` folder run
 
 ```sh
 make deploy

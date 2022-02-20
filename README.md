@@ -1,33 +1,31 @@
 # ReFI
 
-## Frontend
-
-Start with `cd frontend && yarn dev`
-
-## Backend
-
-Start with `cd backend && yarn start`
-
-## Contracts
+## Contracts - Build & deploy this to aurora testnet first
 
 See [contracts README](./contracts/README.md)
 
-## Start a local node
+### Method 1: Build it as a seperate service for frontend and backend (we are using this for demo)
+### Frontend
+
+Start with `cd frontend && yarn dev`
+* Demo in vercel: https://refi-near-hackathon.vercel.app/
+
+### Backend
+
+Start with `cd backend && yarn start`
+* Demo in heroku: https://refi-backend.herokuapp.com/
+
+### Method 2: Start with docker container
 
 Use the Makefile in the root folder. 
 
 **Commands**
 
-- Setup with `make mvm/setup`
-- Start `make mvm/start`
-- Extract updated private keys for local deployment `make mvm/extract-keys`
-- Show accounts list `make mvm/show-keys`
-- Stop `make mvm/stop`
-- Status `make mvm/status`
-- Logs `make mvm/logs`
-
-__Note:__ This will install in the `./mvm` folder. If you want to use the scripts in another directory use `REPO_PATH=<your path> make <command>`
-
+- Setup with `make setup`
+- Start `make start`
+- Stop `make stop`
+- Status `make status`
+- Logs `make logs`
 
 ## Documentation
 

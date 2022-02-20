@@ -7,22 +7,9 @@ Just add dependencies `yarn install`
 # Deployments
 
 - To deploy contracts in the testnet use `yarn run deploy:testnet <file>`
-- To deploy contracts in the a local instance use `yarn run deploy:local <file>`
 
-# Development environment
-
-To use the local setup, use the Makefile in the root of the repository and copy the account addresses. Example:
-
-```sh
-# start the local network
-make mvm/start
-# copy account keys to build/local.keys
-make mvm/extract-keys
-```
-
-To copy contracts addresses in `.env.*.local` use:
-- local `yarn hardhat --config hardhat.config.local.ts export-contracts`
-- testnet `yarn hardhat --config hardhat.config.testnet.ts export-contracts`
+- To copy contracts addresses in the testnet use:
+`yarn hardhat --config hardhat.config.testnet.ts export-contracts`
 
 # Running
 

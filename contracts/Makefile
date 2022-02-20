@@ -1,5 +1,5 @@
 
-DEPLOY?=local
+DEPLOY?=testnet
 SCRIPT?=
 
 extract-contracts:
@@ -21,17 +21,6 @@ deploy/script:
 
 deploy/clean:
 	rm -f build/contracts.json
-deploy/001_stableCoin:
-	DEPLOY=local SCRIPT=001_stableCoin make deploy/script
-deploy/002_ownershipCreator:
-	DEPLOY=local SCRIPT=002_ownershipCreator make deploy/script
-deploy/003_fractionalizer:
-	DEPLOY=local SCRIPT=003_fractionalizer make deploy/script
-deploy/004_swap:
-	DEPLOY=local SCRIPT=004_swap make deploy/script
-deploy/005_lending:
-	DEPLOY=local SCRIPT=005_lending make deploy/script
-
 
 testnet/extract-contracts:
 	DEPLOY=testnet make extract-contracts
