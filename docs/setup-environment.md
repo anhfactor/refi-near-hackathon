@@ -18,14 +18,14 @@ cd frontend && yarn install
 From repository root
 
 ```sh
-make mvm/setup
-make mvm/start
+make setup
+make start
 ```
 
 Once running, extract keys
 
 ```sh
-make mvm/extract-keys
+make extract-keys
 ```
 
 A file in `./contracts/build/local.keys` should have been created
