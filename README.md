@@ -36,7 +36,20 @@ On a miro board using mind-map we started defining the main concept of the proto
    
 For the frontend, we created a template build with NextJS, TailwindCSS and implemented the main navigation according to our scenario. We created a frontend demo script for testing the deployment process and proper functionality of our prototype. 
 
-<center>**If you want to use our DApp use our [Faucet](https://refi-near-hackathon.vercel.app/) then you can mint and NFT, tokenize it using the fractional function. Finally, you can use the fractions for swaping and lending**.</center>
+**If you want to use our DApp use our [Faucet](https://refi-near-hackathon.vercel.app/) then you can mint and NFT, tokenize it using the fractional function. Finally, you can use the fractions for swaping and lending**.
+
+**View the transactions of our DEMO:**
+- Minter-Addresse: 0x703cE411E53843C4F338A2811242eF711A068c50. 
+- Link Aurora testnet: https://testnet.aurorascan.dev/address/0x703cE411E53843C4F338A2811242eF711A068c50.  
+
+**Contract Addresses:**.
+- eEUR (stablecoin): 0x3982eA989e66678037CE4828cEfe4F9A25f1F3c2. 
+- OwnershipCreator (NFTCreator): 0x703cE411E53843C4F338A2811242eF711A068c50. 
+- Fractionaliser: 0xd0d1d7CcA1C10f52b866c19fdC0AC628ed018682. 
+- ReFi Factory: 0x0E6645bEC5fB2f56E9005a28428530c9BFbc809e. 
+- ReFi Router02: 0x83d9Fd42BE972ed68F3290CEaf87Ac5fFE65dEdF. 
+- ReFi Comptroller: 0xC507305FDDc091107FDC257b7DBf2F710C997E76. 
+- ReEUR: 0xa4B43CB404bDB530203dA79d4437c2Ade0d9a6D9.     
 
 ### Contracts - Build & deploy this to aurora testnet first
 
