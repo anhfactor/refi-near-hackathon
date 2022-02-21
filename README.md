@@ -1,6 +1,8 @@
 # ReFi - Financing the Energy Transition - NEAR MetaBUILD Hackathon
 
-ReFi - Financing the Energy Transition. We are bridging the renewable energy world with DeFi. We are making investments in renewable energy projects efficient, inclusive, and accessible to everyone. Devpost link: https://devpost.com/software/refi-financing-the-energy-transition
+ReFi - Financing the Energy Transition. We are bridging the renewable energy world with DeFi. We are making investments in renewable energy projects efficient, inclusive, and accessible to everyone. 
+- Devpost link: https://devpost.com/software/refi-financing-the-energy-transition.  
+- Demo video: https://www.youtube.com/watch?v=bCb_VXR10pM&feature=emb_imp_woyt
 
 ## Table of Contents
 * [Problem](#problem)
